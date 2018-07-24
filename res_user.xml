@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- This file is part of trytond-nuntiare module. The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <menuitem name="Reports" parent="res.menu_res" id="menu_res_report"/>
+
+        <record model="ir.action.wizard" id="wizard_print_res_user">
+            <field name="name">Print Users</field>
+            <field name="wiz_name">nuntiare.print_res_user</field>
+        </record>
+        <record model="ir.action.report" id="report_res_user">
+            <field name="name">Users</field>
+            <field name="model">res_user</field>
+            <field name="report_name">nuntiare.res_user</field>
+            <field name="report">nuntiare/report/res_user.xml</field>
+            <field name="template_extension">xml</field>
+            <field name="extension">html</field>
+        </record>
+        <menuitem parent="menu_res_report"
+            id="menu_report_res_user" name="Users"
+            action="wizard_print_res_user" icon="tryton-print" />
+
+        <record model="ir.action.keyword" id="report_res_user_print">
+            <field name="keyword">form_print</field>
+            <field name="model">res.user,-1</field>
+            <field name="action" ref="report_res_user"/>
+        </record>
+
+    </data>
+</tryton>

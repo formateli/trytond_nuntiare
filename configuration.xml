@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="res.group" id="group_nuntiare_admin">
+            <field name="name">Nuntiare Administration</field>
+        </record>
+        <record model="res.user-res.group"
+            id="user_admin_group_nuntiare_admin">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_nuntiare_admin"/>
+        </record>
+
+        <record model="ir.ui.icon" id="nuntiare_icon">
+            <field name="name">nuntiare</field>
+            <field name="path">icons/nuntiare.svg</field>
+        </record>
+        <menuitem name="Nuntiare" sequence="30"
+            id="menu_nuntiare" icon="nuntiare"/>
+        <record model="ir.ui.menu-res.group"
+            id="menu_nuntiare_group_nuntiare">
+            <field name="menu" ref="menu_nuntiare"/>
+            <field name="group" ref="group_nuntiare_admin"/>
+        </record>
+
+        <menuitem parent="menu_nuntiare" name="Configuration"
+            id="menu_nuntiare_configuration"
+            sequence="10" icon="tryton-list"/>
+
+        <record model="ir.ui.view" id="nuntiare_configuration_view_form">
+            <field name="model">nuntiare.configuration</field>
+            <field name="type">form</field>
+            <field name="name">configuration_form</field>
+        </record>
+        <record model="ir.action.act_window" id="act_nuntiare_configuration_form">
+            <field name="name">Nuntiare Configuration</field>
+            <field name="res_model">nuntiare.configuration</field>
+        </record>
+        <record model="ir.action.act_window.view"
+                id="act_nuntiare_configuration_view1">
+            <field name="sequence" eval="1"/>
+            <field name="view" ref="nuntiare_configuration_view_form"/>
+            <field name="act_window" ref="act_nuntiare_configuration_form"/>
+        </record>
+        <menuitem parent="menu_nuntiare_configuration"
+            action="act_nuntiare_configuration_form"
+            id="menu_configuration" sequence="10" icon="tryton-list"/>
+
+        <record model="ir.model.access" id="access_configuration">
+            <field name="model" search="[('model', '=', 'nuntiare.configuration')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+        <record model="ir.model.access" id="access_configuration_admin">
+            <field name="model" search="[('model', '=', 'nuntiare.configuration')]"/>
+            <field name="group" ref="group_nuntiare_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+    </data>
+</tryton>

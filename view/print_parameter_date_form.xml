@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<form>
+    <label name="date"/>
+    <field name="date"/>
+    <label name="output_type"/>
+    <field name="output_type"/>
+</form>

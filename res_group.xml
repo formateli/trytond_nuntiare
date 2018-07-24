@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!-- This file is part of trytond-nuntiare module. The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.action.wizard" id="wizard_print_res_group">
+            <field name="name">Print Groups</field>
+            <field name="wiz_name">nuntiare.print_res_group</field>
+        </record>
+        <record model="ir.action.report" id="report_res_group">
+            <field name="name">Groups</field>
+            <field name="model">res_group</field>
+            <field name="report_name">nuntiare.res_group</field>
+            <field name="report">nuntiare/report/res_group.xml</field>
+            <field name="template_extension">xml</field>
+            <field name="extension">html</field>
+        </record>
+        <menuitem parent="menu_res_report"
+            id="menu_report_res_group" name="Groups"
+            action="wizard_print_res_group" icon="tryton-print" />
+
+        <record model="ir.action.keyword" id="report_res_group_print">
+            <field name="keyword">form_print</field>
+            <field name="model">res.group,-1</field>
+            <field name="action" ref="report_res_group"/>
+        </record>
+
+    </data>
+</tryton>
