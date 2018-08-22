@@ -3,7 +3,6 @@
 # the full copyright notices and license terms.
 
 from trytond.pool import Pool
-from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.modules.nuntiare.nuntiare_report import Nuntiare
 from trytond.modules.nuntiare.data import Data
@@ -45,9 +44,7 @@ class ResUserReport(Nuntiare):
 
         domain = []
         if ids:
-            domain.append('OR')
-            for id_ in ids:
-                domain.append([('id', '=', id_)])
+            domain = [('id', 'in', ids)]
 
         users = User.search(domain)
         for user in users:
