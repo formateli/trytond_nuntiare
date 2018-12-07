@@ -51,11 +51,8 @@ class Nuntiare(Report):
         render.render(rpt, False)
 
         result_path = path.replace('.xml', '.' + oext)
-        try:
-            result_file = open(result_path, 'r+')
-            data = result_file.read()
-        finally:
-            result_file.close()
+        with open(result_path, 'rb') as message:
+            data = message.read() 
 
         os.remove(result_path)
         os.remove(path)
