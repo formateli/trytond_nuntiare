@@ -30,23 +30,23 @@ except ImportError:
         raise Exception(msg)
 
 from trytond.pool import Pool
-from .configuration import *
-from .print_parameter import *
-from .res_user import *
-from .res_group import *
+from . import configuration
+from . import print_parameter
+from . import res_user
+from . import res_group
 
 def register():
     Pool.register(
-        Configuration,
-        PrintParameter,
-        PrintParameterDate,
-        PrintParameterDates,
+        configuration.Configuration,
+        print_parameter.PrintParameter,
+        print_parameter.PrintParameterDate,
+        print_parameter.PrintParameterDates,
         module='nuntiare', type_='model')
     Pool.register(
-        PrintResUser,
-        PrintResGroup,
+        res_user.PrintResUser,
+        res_group.PrintResGroup,
         module='nuntiare', type_='wizard')
     Pool.register(
-        ResUserReport,
-        ResGroupReport,
+        res_user.ResUserReport,
+        res_group.ResGroupReport,
         module='nuntiare', type_='report')

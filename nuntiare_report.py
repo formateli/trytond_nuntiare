@@ -34,8 +34,6 @@ class Nuntiare(Report):
             report_context,
             oext=oext)
 
-        if not isinstance(content, unicode):
-            content = bytearray(content) if bytes == str else bytes(content)
         return (oext, content, action_report.direct_print, action_report.name)
 
     @classmethod
