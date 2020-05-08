@@ -1,9 +1,5 @@
-# This file is part of trytond-nuntiare module for Tryton.
-# The COPYRIGHT file at the top level of this repository contains
-# the full copyright notices and license terms.
-
 tryton-nuntiare
-===============
+###############
 
 Nuntiare Tryton module for report rendering.
 
@@ -12,18 +8,6 @@ Installing
 ----------
 
 Drop the content of this folder on trytond/modules and update database.
-
-Support
--------
-
-If you encounter any problems with Tryton, please don't hesitate to ask
-questions on the Tryton bug tracker, mailing list, wiki or IRC channel:
-
-  http://bugs.tryton.org/
-  http://groups.tryton.org/
-  http://wiki.tryton.org/
-  irc://irc.freenode.net/tryton
-
 
 License
 -------
@@ -38,5 +22,5 @@ See COPYRIGHT
 
 For more information please visit:
 
-  http://www.tryton.org/
-  http://www.formateli.com/
+  * https://formateli.com/
+  * http://www.tryton.org/
