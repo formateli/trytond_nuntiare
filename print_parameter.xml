@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="print_parameter_view_form">
+            <field name="model">nuntiare.print.parameter</field>
+            <field name="type">form</field>
+            <field name="name">print_parameter_form</field>
+        </record>
+        <record model="ir.ui.view" id="print_parameter_date_view_form">
+            <field name="model">nuntiare.print.parameter_date</field>
+            <field name="type">form</field>
+            <field name="name">print_parameter_date_form</field>
+        </record>
+        <record model="ir.ui.view" id="print_parameter_dates_view_form">
+            <field name="model">nuntiare.print.parameter.dates</field>
+            <field name="type">form</field>
+            <field name="name">print_parameter_dates_form</field>
+        </record>
+    </data>
+</tryton>
