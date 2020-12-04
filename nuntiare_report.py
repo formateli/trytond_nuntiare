@@ -1,8 +1,8 @@
 # This file is part of trytond-nuntiare module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-
 import os
+import tempfile
 from trytond.pool import Pool
 from trytond.report import Report
 from trytond.config import config
@@ -46,16 +46,31 @@ class Nuntiare(Report):
             cls.get_parameters(report_context['data']))
 
         render = Render.get_render(oext)
-        render.render(rpt, False)
+        render.render(rpt, overwrite=False)
 
         result_path = path.replace('.xml', '.' + oext)
         with open(result_path, 'rb') as message:
-            data = message.read() 
+            data = message.read()
 
         os.remove(result_path)
         os.remove(path)
 
         return data
+
+    @classmethod
+    def _prepare_template_file(cls, report):
+        # Convert to str as value from DB is not supported by StringIO
+        report_content = (bytes(report.report_content) if report.report_content
+            else None)
+        if not report_content:
+            raise Exception('Error', 'Missing report file!')
+
+        fd, path = tempfile.mkstemp(
+            suffix=(os.extsep + report.template_extension),
+            prefix='trytond_')
+        with open(path, 'wb') as f:
+            f.write(report_content)
+        return fd, path
 
     @classmethod
     def get_parameters(cls, data):
