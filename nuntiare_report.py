@@ -27,7 +27,7 @@ class Nuntiare(Report):
         else:
             action_report = ActionReport(action_id)
 
-        report_context = cls.get_context(None, data)
+        report_context = cls.get_context(None, None, data)
         oext = cls.get_extension(action_report, data)
         content = cls.render(
             action_report,
