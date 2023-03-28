@@ -46,7 +46,8 @@ class Nuntiare(Report):
             cls.get_parameters(report_context['data']))
 
         render = Render.get_render(oext)
-        render.render(rpt, overwrite=False)
+        kws = cls.get_render_kws(report_context['data'])
+        render.render(rpt, kws)
 
         result_path = path.replace('.xml', '.' + oext)
         with open(result_path, 'rb') as message:
@@ -78,10 +79,19 @@ class Nuntiare(Report):
         result['conn_string'] = cls.get_conn_string()
         cls.add_company_info(result)
         for key in data:
-            if key == "output_type":
+            if key == "output_type" or \
+                    key.startswith('nuntiare_render_kws_'):
                 continue
             result[key] = data[key]
         return result
+
+    @classmethod
+    def get_render_kws(cls, data):
+        kws = {'overwrite': True}
+        for key in data:
+            if key.startswith('nuntiare_render_kws_'):
+                kws[key[20:]] = data[key]
+        return kws
 
     @classmethod
     def add_company_info(cls, parameters):
