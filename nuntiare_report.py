@@ -1,8 +1,8 @@
 # This file is part of trytond-nuntiare module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-
 import os
+import tempfile
 from trytond.pool import Pool
 from trytond.report import Report
 from trytond.config import config
@@ -27,7 +27,7 @@ class Nuntiare(Report):
         else:
             action_report = ActionReport(action_id)
 
-        report_context = cls.get_context(None, data)
+        report_context = cls.get_context(None, None, data)
         oext = cls.get_extension(action_report, data)
         content = cls.render(
             action_report,
@@ -46,11 +46,12 @@ class Nuntiare(Report):
             cls.get_parameters(report_context['data']))
 
         render = Render.get_render(oext)
-        render.render(rpt, False)
+        kws = cls.get_render_kws(report_context['data'])
+        render.render(rpt, kws)
 
         result_path = path.replace('.xml', '.' + oext)
         with open(result_path, 'rb') as message:
-            data = message.read() 
+            data = message.read()
 
         os.remove(result_path)
         os.remove(path)
@@ -58,15 +59,39 @@ class Nuntiare(Report):
         return data
 
     @classmethod
+    def _prepare_template_file(cls, report):
+        # Convert to str as value from DB is not supported by StringIO
+        report_content = (bytes(report.report_content) if report.report_content
+            else None)
+        if not report_content:
+            raise Exception('Error', 'Missing report file!')
+
+        fd, path = tempfile.mkstemp(
+            suffix=(os.extsep + report.template_extension),
+            prefix='trytond_')
+        with open(path, 'wb') as f:
+            f.write(report_content)
+        return fd, path
+
+    @classmethod
     def get_parameters(cls, data):
         result = {}
         result['conn_string'] = cls.get_conn_string()
         cls.add_company_info(result)
         for key in data:
-            if key == "output_type":
+            if key == "output_type" or \
+                    key.startswith('nuntiare_render_kws_'):
                 continue
             result[key] = data[key]
         return result
+
+    @classmethod
+    def get_render_kws(cls, data):
+        kws = {'overwrite': True}
+        for key in data:
+            if key.startswith('nuntiare_render_kws_'):
+                kws[key[20:]] = data[key]
+        return kws
 
     @classmethod
     def add_company_info(cls, parameters):
