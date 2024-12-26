@@ -7,7 +7,7 @@
             <field name="name">print_parameter_form</field>
         </record>
         <record model="ir.ui.view" id="print_parameter_date_view_form">
-            <field name="model">nuntiare.print.parameter_date</field>
+            <field name="model">nuntiare.print.parameter.date</field>
             <field name="type">form</field>
             <field name="name">print_parameter_date_form</field>
         </record>

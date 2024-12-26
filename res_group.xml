@@ -9,7 +9,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <record model="ir.action.report" id="report_res_group">
             <field name="name">Groups</field>
-            <field name="model">res_group</field>
+            <field name="model">res.group</field>
             <field name="report_name">nuntiare.res_group</field>
             <field name="report">nuntiare/report/res_group.xml</field>
             <field name="template_extension">xml</field>
