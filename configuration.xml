@@ -46,7 +46,7 @@
             id="menu_configuration" sequence="10" icon="tryton-list"/>
 
         <record model="ir.model.access" id="access_configuration">
-            <field name="model" search="[('model', '=', 'nuntiare.configuration')]"/>
+	    <field name="model">nuntiare.configuration</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -54,7 +54,7 @@
         </record>
 
         <record model="ir.model.access" id="access_configuration_admin">
-            <field name="model" search="[('model', '=', 'nuntiare.configuration')]"/>
+	    <field name="model">nuntiare.configuration</field>
             <field name="group" ref="group_nuntiare_admin"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
