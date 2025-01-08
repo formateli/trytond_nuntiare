@@ -15,7 +15,6 @@ class Nuntiare(Report):
     def execute(cls, ids, data):
         pool = Pool()
         ActionReport = pool.get('ir.action.report')
-        cls.check_access()
 
         action_id = data.get('action_id')
         if action_id is None:
@@ -26,6 +25,9 @@ class Nuntiare(Report):
             action_report = action_reports[0]
         else:
             action_report = ActionReport(action_id)
+
+        model = action_report.model or data.get('model')
+        cls.check_access(action_report, model, ids)
 
         report_context = cls.get_context(None, None, data)
         oext = cls.get_extension(action_report, data)
